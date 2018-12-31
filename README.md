@@ -5,4 +5,6 @@ program which has two balls
 continously rebounding from 
 the boundaries.
 -----------------
-this belongs to 
+
+Just download the index.html file
+and open using your browser
