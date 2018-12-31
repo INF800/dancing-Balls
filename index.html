@@ -1,0 +1,116 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>COMPUTER GRAPHICS ANIMATION PROJECT</title>
+    <style>
+      * { padding: 0; 
+          margin: 0; 
+        }
+      canvas { background: #eee; 
+               display: block; 
+               margin: 0 auto; 
+             }
+    </style>
+</head>
+<body>
+
+<canvas id="myCanvas" width="480" height="320"></canvas>
+
+<script>
+
+var canvas = document.getElementById("myCanvas");
+var ctx = canvas.getContext("2d");
+
+var ballRadius = 10;
+
+var bx = canvas.width/2;
+var by = canvas.height-30;
+
+var rx = canvas.width/2;
+var ry = canvas.height-30;
+
+var dbx = 2;
+var dby = -2;
+
+var drx = -2;
+var dry = 2;
+
+function drawBlueBall() {
+  ctx.beginPath();
+  ctx.arc(bx, by, ballRadius, 0, Math.PI*2);
+  ctx.fillStyle = "#0095DD";
+  ctx.fill();
+  ctx.closePath();
+}
+
+function drawRedBall() {
+  ctx.beginPath();
+  ctx.arc(rx, ry, ballRadius, 0, Math.PI*2);
+  ctx.fillStyle = "#ff0000 ";
+  ctx.fill();
+  ctx.closePath();
+}
+
+function drawBoundary() {
+  ctx.beginPath();
+  ctx.rect(30,50,canvas.width-60,canvas.height-70);
+  ctx.strokeStyle = "#787878";
+  ctx.stroke();
+  ctx.closePath();
+}
+
+function drawName() {
+  ctx.font = "16px Arial";
+  ctx.fillStyle = "#0095DD";
+  ctx.fillText("BALLS", 240, 40);
+
+  ctx.font = "16px Arial";
+  ctx.fillStyle = "#FF0000";
+  ctx.fillText("DANCING", 165, 40);
+}
+
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  
+  drawName();
+  drawBoundary();  
+  drawBlueBall();
+  drawRedBall();
+  
+
+  if(bx + dbx > canvas.width-30-ballRadius || bx + dbx < 30+ballRadius) {
+    dbx = -dbx;
+  }
+  if(by + dby > canvas.height-ballRadius-20 || by + dby < ballRadius+50) {
+    dby = -dby;
+  }
+
+  if(rx + drx < 30+ballRadius || rx + drx > canvas.width-30-ballRadius) {
+    drx = -drx;
+  }
+  if(ry + dry > canvas.height-ballRadius-20 || ry + dry < ballRadius+50) {
+    dry = -dry;
+  }
+ 
+
+ 
+
+  bx += dbx;
+  by += dby;
+
+  rx += drx;
+  ry += dry;
+
+  requestAnimationFrame(draw);
+}
+
+draw();
+
+
+
+</script>
+
+</body>
+</html>
